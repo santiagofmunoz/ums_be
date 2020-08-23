@@ -2,25 +2,45 @@ from rest_framework import serializers
 from .models import *
 
 
+# TODO Add comments
+
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('course_id', 'course_name', 'quota', 'course')
+        fields = ('pk', 'course_name', 'quota', 'course_credits')
 
 
 class PreliminarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Preliminary
-        fields = ('preliminary_id', 'course', 'preface_of')
+        fields = ('pk', 'course', 'preface_of')
 
 
 class CareerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Career
-        fields = ('career_id', 'career_name', 'credits')
+        fields = ('pk', 'career_name', 'career_credits')
 
 
-class StudentCourse(serializers.ModelSerializer):
+class StudentCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentCourse
-        fields = ('student_course_id', 'student', 'course', 'course_status')
+        fields = ('pk', 'student', 'course', 'score', 'course_status')
+
+
+class StudentCareerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentCareer
+        fields = ('pk', 'student', 'career', 'student_career_credits')
+
+
+class TeacherCourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TeacherCourse
+        fields = ('pk', 'teacher', 'course')
+
+
+class CareerCourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CareerCourse
+        fields = ('pk', 'career', 'course')

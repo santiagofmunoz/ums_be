@@ -9,7 +9,7 @@ class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
         fields = (
-            'person_id',
+            'pk',
             'ci',
             'password',
             'first_name',
@@ -17,7 +17,6 @@ class PersonSerializer(serializers.ModelSerializer):
             'phone',
             'email',
             'address',
-            'created_at',
             'active',
         )
 
@@ -25,16 +24,16 @@ class PersonSerializer(serializers.ModelSerializer):
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ('teacher_id', 'person', 'course')
+        fields = ['pk', 'person']
 
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ('student_id', 'person', 'career')
+        fields = ['pk', 'person']
 
 
 class AdministrativeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Administrative
-        fields = ('administrative_id', 'person')
+        fields = ['pk', 'person']
