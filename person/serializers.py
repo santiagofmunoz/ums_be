@@ -8,7 +8,7 @@ from person.models import *
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = (
+        fields = [
             'pk',
             'ci',
             'password',
@@ -18,7 +18,7 @@ class PersonSerializer(serializers.ModelSerializer):
             'email',
             'address',
             'active',
-        )
+        ]
 
 
 class TeacherSerializer(serializers.ModelSerializer):

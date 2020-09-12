@@ -30,9 +30,18 @@ def person_detail(request, pk):
 # TODO: Optimize this! DRY!
 def person_create(request):
     serializer = PersonSerializer(data=request.data)
+    person_type = request.data["type"]
     if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        created_person = serializer.save()
+        person_pk = created_person.get_pk()
+        get_created_person = Person.objects.get(pk=person_pk)
+        if person_type == "student":
+            Student.objects.create(person=get_created_person)
+        elif person_type == "teacher":
+            Teacher.objects.create(person=get_created_person)
+        elif person_type == "administrative":
+            Administrative.objects.create(person=get_created_person)
+        return Response(status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

@@ -17,6 +17,9 @@ class Person(models.Model):
     def __str__(self):
         return self.first_name + " " + self.last_name
 
+    def get_pk(self):
+        return self.pk
+
 
 class Teacher(models.Model):
     person = models.OneToOneField(Person, models.CASCADE)
