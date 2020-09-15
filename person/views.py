@@ -7,6 +7,14 @@ from .serializers import *
 
 # TODO Add comments
 
+def associate_person_student_teacher_administrative(person_type, person_obj):
+    if person_type == "student":
+        Student.objects.create(person=person_obj)
+    elif person_type == "teacher":
+        Teacher.objects.create(person=person_obj)
+    elif person_type == "administrative":
+        Administrative.objects.create(person=person_obj)
+
 @api_view(['GET', 'PUT'])
 def person_detail(request, pk):
     try:
@@ -35,12 +43,12 @@ def person_create(request):
         created_person = serializer.save()
         person_pk = created_person.get_pk()
         get_created_person = Person.objects.get(pk=person_pk)
-        if person_type == "student":
-            Student.objects.create(person=get_created_person)
-        elif person_type == "teacher":
-            Teacher.objects.create(person=get_created_person)
-        elif person_type == "administrative":
-            Administrative.objects.create(person=get_created_person)
+        associate_person_student_teacher_administrative(person_type, get_created_person)
+        return Response(status=status.HTTP_201_CREATED)
+    if serializer.errors["ci"] == ["person with this CI already exists."]:
+        person_ci = request.data["ci"]
+        get_person = Person.objects.get(ci=person_ci)
+        associate_person_student_teacher_administrative(person_type, get_person)
         return Response(status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
