@@ -19,6 +19,7 @@ urlpatterns = [
 
     url(r'api/university/course/$', university_views.course_list),
     url(r'api/university/course/(?P<pk>[0-9]+)$', university_views.course_detail),
+    url(r'api/university/career/create', university_views.career_create),
     url(r'api/university/career/$', university_views.career_list),
     url(r'api/university/career/(?P<pk>[0-9]+)$', university_views.career_detail),
     url(r'api/university/preliminary/$', university_views.preliminary_list),

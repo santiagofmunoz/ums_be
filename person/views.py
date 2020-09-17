@@ -35,7 +35,6 @@ def person_detail(request, pk):
 
 
 @api_view(['POST'])
-# TODO: Optimize this! DRY!
 def person_create(request):
     serializer = PersonSerializer(data=request.data)
     person_type = request.data["type"]
@@ -54,7 +53,6 @@ def person_create(request):
 
 
 @api_view(['GET', 'POST'])
-# TODO: Optimize this! DRY!
 def teacher_list(request):
     if request.method == 'GET':
         teachers = Teacher.objects.all()
@@ -70,7 +68,6 @@ def teacher_list(request):
 
 
 @api_view(['GET', 'POST'])
-# TODO: Optimize this! DRY!
 def student_list(request):
     if request.method == 'GET':
         students = Student.objects.all()
@@ -86,7 +83,6 @@ def student_list(request):
 
 
 @api_view(['GET', 'POST'])
-# TODO: Optimize this! DRY!
 def administrative_list(request):
     if request.method == 'GET':
         administratives = Administrative.objects.all()
