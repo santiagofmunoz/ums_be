@@ -7,7 +7,7 @@ from .models import *
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('pk', 'course_name', 'quota', 'course_credits')
+        fields = ('pk', 'course_name', 'course_credits')
 
 
 class PreliminarySerializer(serializers.ModelSerializer):

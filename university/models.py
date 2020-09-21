@@ -5,10 +5,12 @@ from django.db import models
 # TODO Add Comments
 
 class Course(models.Model):
-    course_name = models.CharField("Course Name", max_length=255)
-    quota = models.IntegerField("Quota")
+    course_name = models.CharField("Course Name", max_length=255, unique=True)
     course_credits = models.IntegerField("Course Credits")
     active = models.BooleanField("Active", default=True)
+
+    def get_pk(self):
+        return self.pk
 
 
 class Preliminary(models.Model):
@@ -17,7 +19,7 @@ class Preliminary(models.Model):
 
 
 class Career(models.Model):
-    career_name = models.CharField("Career Name", max_length=255)
+    career_name = models.CharField("Career Name", max_length=255, unique=True)
     career_credits = models.IntegerField("Career Credits")
     active = models.BooleanField("Active", default=True)
 
@@ -47,6 +49,7 @@ class TeacherCourse(models.Model):
     course = models.ForeignKey(Course, models.CASCADE)
 
 
+# This was created this way so that you can have a course in multiple careers
 class CareerCourse(models.Model):
     career = models.ForeignKey(Career, models.CASCADE)
     course = models.ForeignKey(Course, models.CASCADE)

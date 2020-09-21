@@ -7,6 +7,19 @@ from .serializers import *
 
 # TODO Add comments
 
+@api_view(['POST'])
+def course_create(request):
+    serializer = CourseSerializer(data=request.data)
+    career_pk = request.data['career_pk']
+    if serializer.is_valid():
+        created_course = serializer.save()
+        course_pk = created_course.get_pk()
+        get_course_obj = Course.objects.get(pk=course_pk)
+        get_career_obj = Career.objects.get(pk=career_pk)
+        CareerCourse.objects.create(course=get_course_obj, career=get_career_obj)
+        return Response(status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET', 'PUT'])
 def course_detail(request, pk):
